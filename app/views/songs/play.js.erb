@@ -1,0 +1,4 @@
+$('.controlador').html('<%= j render 'controlador', song: @c_song, prev_song: @p_song, next_song: @n_song %>');
+
+$("#listacanciones tr").css("background-color", "transparent");
+$("#song_" + <%= @c_song.id %>).css("background-color", "orange");

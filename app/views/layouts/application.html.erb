@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MeetMusic</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<center>
+		<div class="navbar">
+  			<div class="navbar-inner">
+    			
+            <% if current_user %>
+              <div class="logo"><%=link_to(image_tag("M_Music.png", alt: "Imagen M_Music"),songs_path)%></div>
+            <% else %>
+              <div class="logo"><%=link_to(image_tag("M_Music.png", alt: "Imagen M_Music"))%></div>
+            <% end %>
+
+
+     				<div id="cuenta">
+						<div id="user_nav">  
+				  		<% if current_user %>  
+				   		Te has logueado como <%= current_user.email %> 
+				   		 <%= link_to "Desconectar", log_out_path, :class => "link_azul" %>
+				  		<% else %>  
+				   		 <%= link_to "Registrarse", sign_up_path %> o   
+				   		 <%= link_to "Identificarse", log_in_path %>  
+				  		<% end %>  
+				  		</div>
+					</div> 
+    			
+  			</div>
+		</div>
+	
+	
+	
+	<% flash.each do |name, msg| %>  
+  	<%= content_tag :div, msg, :id => "flash#{name}" %>  
+  	<% end %> 
+
+<%= yield %>
+	</center>
+</body>
+</html>
