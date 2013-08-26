@@ -18,30 +18,17 @@ $(document).ready(function(){
 	$("#listacanciones tr").click(function () {
 		  $("#listacanciones tr").css("background-color", "transparent");
 		  $(this).css("background-color", "orange");
+		  $("#control").pause();
 	});
 
-	$("#control").on('ended', function() {
+	/*$('#control').on('ended', function() {
    		alert('Canción terminada!');
+	});*/
+
+	$(song.onended = function(e) {
+		alert('Canción terminada!');
+  	//$("#Siguiente").click();
 	});
-	
-	/*
-	$(".play").click(function () {
-		//$(".play").css("background-color", "transparent");
-		//$("#listacanciones tr").css("background-color", "transparent");
-		//$(this).css("background-color", "green");
-		
-		$("#control").remove();
-		    
-	});
-	
-	var audio = document.getElmentById('control');
-	audio.addEventListener("ended", function() {
-		$("#listacanciones tr").css("background-color", "green");
-	    audio.src = "#{@songs.first.audio.url}";
-	    audio.play();
-	});
-	
-	*/
 	
 	
       

@@ -2,7 +2,7 @@
   <%= "Sonando...#{song.name}" %> <br>
 
   <%= link_to 'Anterior', play_song_path(prev_song), remote: true if prev_song %> |
-  <%= link_to 'Siguiente', play_song_path(next_song), remote: true if next_song %><br>
+  <%= link_to 'Siguiente', play_song_path(next_song), remote: true, id:"Siguiente" if next_song %><br>
 
 	<%= audio_tag "#{song.audio.url}", controls: true , id: "control" , class: "audio", autoplay: true %>
 	
