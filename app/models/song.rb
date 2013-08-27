@@ -7,6 +7,11 @@ class Song < ActiveRecord::Base
   validates_attachment_presence :audio
   validates_attachment_content_type :audio, content_type: ['audio/mp3','audio/mpeg']
 
+  def self.random
+    ids = connection.select_all("SELECT id FROM songs")
+    find(ids[rand(ids.length)]["id"].to_i) unless ids.blank?
+  end
+
   def self.song_adjust(song)  #llegan los dos parámetros
     TagLib::FileRef.open(song.audio.path) do |fileref|
       unless fileref.null?

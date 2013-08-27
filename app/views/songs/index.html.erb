@@ -2,7 +2,7 @@
 	<%= render "users/formulario" %>
 </div>
 
-<div class="principal" >
+<div class="principal">
 	<table id="listacanciones" class="table">
 		<thead>
 			<tr>
@@ -38,7 +38,7 @@
 <% if @songs.present? %>
 	<div class="navbar navbar-fixed-bottom">
 		<div class='controlador'>
-			<%= render 'controlador', song: @c_song, prev_song: @p_song, next_song: @n_song %>
+			<%= render 'controlador', song: @c_song, prev_song: @p_song, next_song: @n_song, random_song: @r_song %>
 		</div>
 	</div>
 <% end %>

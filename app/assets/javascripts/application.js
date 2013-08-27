@@ -16,21 +16,17 @@
 $(document).ready(function(){
 	
 	$("#listacanciones tr").click(function () {
-		  $("#listacanciones tr").css("background-color", "transparent");
-		  $(this).css("background-color", "orange");
-		  $("#control").pause();
+		$("#listacanciones tr").css("background-color", "transparent");
+		$(this).css("background-color", "orange");
 	});
 
-	/*$('#control').on('ended', function() {
-   		alert('Canción terminada!');
-	});*/
+	play();
 
-	$(song.onended = function(e) {
-		alert('Canción terminada!');
-  	//$("#Siguiente").click();
-	});
-	
-	
-      
-   
 });
+
+function play(){
+	var audio = document.getElementById('audio');
+  audio.addEventListener('ended',function(){
+     $("#siguiente").click();
+  });
+}

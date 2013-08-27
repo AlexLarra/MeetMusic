@@ -6,7 +6,7 @@ class SongsController < ApplicationController
   # GET /songs.json
   def index
     @songs = current_user.songs.order(sort_column + ' ' + sort_direction)
-    @p_song, @c_song, @n_song = load_prev_current_next(@songs, @songs.first)
+    load_prev_current_next(@songs, @songs.first)
     
     respond_to do |format|
       format.html # index.html.erb
@@ -102,11 +102,11 @@ class SongsController < ApplicationController
   
   
   def recientes
-    @normal = current_user.songs
-    @songs = @normal.reverse
+    @songs = current_user.songs.reverse
+    load_prev_current_next(@songs, @songs.first)
     
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render 'index' }
       format.json { render json: @songs }
     end
   end
@@ -132,7 +132,7 @@ class SongsController < ApplicationController
   def play
     @songs = current_user.songs.order(sort_column + ' ' + sort_direction)
     @song = current_user.songs.find(params[:id])
-    @p_song, @c_song, @n_song = load_prev_current_next(@songs, @song)
+    load_prev_current_next(@songs, @song)
   end
   
   
@@ -140,11 +140,10 @@ class SongsController < ApplicationController
   def load_prev_current_next(songs, current)
     return nil if songs.empty?
     current_index = songs.rindex(current)
-    [
-      songs.at(current_index - 1), 
-      current, 
-      songs.at(current_index + 1)
-    ]
+    @p_song = songs.at(current_index - 1)
+    @c_song = current
+    @n_song = songs.at(current_index + 1)
+    @r_song = Song.random
   end
 
   def signed_in?

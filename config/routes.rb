@@ -1,8 +1,18 @@
 # -*- encoding : utf-8 -*-
 MeetMusic::Application.routes.draw do
 
+  root :to => "sessions#new"
+
+  resources :sessions
+  get "log_in" => "sessions#new"
+  get "log_out" => "sessions#destroy"
 
   resources :users
+  get "sign_up" => "users#new"
+  get "user" => "users#show"
+  get "cuenta" => "users#cuenta"
+  get "borrar_cuenta" => "users#destroy"
+
   resources :songs do 
     member do
        get "descargar" => "songs#song_download"
@@ -10,21 +20,9 @@ MeetMusic::Application.routes.draw do
     end
     collection do 
       get "descargar_todas" => "songs#all_songs_download"
+      get "recientes" => "songs#recientes"
     end
   end
-  
-  
-  get "songs" => "songs#index"
-  get "log_in" => "sessions#new"
-  get "log_out" => "sessions#destroy"
-  get "sign_up" => "users#new"
-  get "user" => "users#show"
-  get "cuenta" => "users#cuenta"
-  get "borrar_cuenta" => "users#destroy"
-  get "recientes" => "songs#recientes"
-  root :to => "sessions#new"  
-  
-  resources :sessions
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

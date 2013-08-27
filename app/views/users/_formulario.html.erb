@@ -1,10 +1,11 @@
+<ul class="nav">
+		<li><%= link_to "Canciones", songs_url, style: (action_name == 'index' ? 'background: #eee;' : '') %></li><br />
+		<li><%= link_to "Opciones de cuenta", {:controller => "users", :action => "cuenta"}, style: (action_name == 'cuenta' ? 'background: #eee;' : '') %></li><br />
+		<li><%= link_to "Añadidas recientemente", {:controller => "songs", :action => "recientes"}, style: (action_name == 'recientes' ? 'background: #eee;' : '') %></li><br />
+		<li><%= link_to "Descargar todas", descargar_todas_songs_path, data: { confirm: '¿Estás seguro de que deseas bajarte todas las canciones? Puede que tarde unos minutos en comprimirlas, por favor no cierres el navegador.' } %></li><br />
+		<li><%= link_to 'Subir canción', new_song_path, target: '_blank' %></li><br />
 
-	<ul class="nav">
-  		<li><%= link_to "Canciones", songs_url %></li><br />
-  		<li><%= link_to "Opciones de cuenta", :controller => "users", :action => "cuenta" %></li><br />
-  		<li><%= link_to "Añadidas recientemente", :controller => "songs", :action => "recientes" %></li><br />
-  		<li><%= link_to "Descargar todas", descargar_todas_songs_path, data: { confirm: '¿Estás seguro de que deseas bajarte todas las canciones? Puede que tarde unos minutos en comprimirlas, por favor no cierres el navegador.' } %></li><br />
-  		<li><a href="/songs/new" target="_blank">Subir canción </a></li><br />
-  		<br /><br /><br /><br /><br />
-  		<li><%= link_to "Obtener cuenta premium", songs_url %></li><br />
-	</ul>
+    <br /><br /><br /><br /><br />
+
+    <li><%= link_to "Obtener cuenta premium", songs_url %></li><br />
+</ul>
