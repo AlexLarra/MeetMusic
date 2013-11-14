@@ -1,0 +1,44 @@
+<div class="paneldecontrol">
+	<%= render "users/formulario" %>
+</div>
+
+<div class="principal">
+	<table id="listacanciones" class="table">
+		<thead>
+			<tr>
+				<th><%= sortable "name", "Nombre" %></th>
+				<th><%= sortable "artist", "Artista" %></th>
+				<th>Álbum</th>
+				<th>Duracion</th>
+				<th>Reprod</th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+
+		<% @songs.each_with_index do |song, i| %>
+			<tr id="<%= "song_#{song.id}" %>" class="playing" style="<%= 'background-color: orange' if i==0 %>">
+				<td><%= song.name %></td>
+				<td><%= song.artist %></td>
+				<td><%= song.album %></td>
+				<td><%= song.duration %></td>
+				<td><%= song.reprod %></td>
+				<td><%= link_to 'Editar', edit_song_path(song) %></td>
+				<td><%= link_to 'Borrar', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				<td><%= link_to 'Descargar', descargar_song_path(:id => song.id) %></td>
+				<td class="play"><%= link_to 'Play', play_song_path(song), remote: true %></td>
+
+			</tr>
+		<% end %>
+	</table>
+</div>
+
+<% if @songs.present? %>
+	<div class="navbar navbar-fixed-bottom">
+		<div class='controlador'>
+			<%= render 'controlador', song: @c_song, prev_song: @p_song, next_song: @n_song, random_song: @r_song %>
+		</div>
+	</div>
+<% end %>

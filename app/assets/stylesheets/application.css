@@ -1,0 +1,84 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+ body{}
+ 
+.logo{
+	float: left;
+  height: auto;
+  width: 350px;
+  padding-top: 20px;
+}
+
+.logo a:hover{
+  background-color: transparent;
+}
+	
+#cuenta{
+	float: right;
+	padding: 30px;
+}
+
+.paneldecontrol{
+	float: left;
+	height: auto;
+	padding-left: 3%;
+	padding-right: 3%;
+	width: 15%;
+}
+
+.principal{
+	width: 77%;
+	float: right;
+	overflow:scroll;
+	overflow:auto;
+	height:430px;
+}
+
+.link_azul{
+	color: #00aba9;
+}
+
+.controlador{
+	background:#00ABA9;
+	border-radius: 40px;
+	width: 90%;
+}
+
+.audio{
+width: 500px;
+margin-bottom: 10px;
+margin-top: 10px;
+}
+
+.table th .current {
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+.table th .asc { 
+  background-image: url(/images/up_arrow.png); 
+}
+
+.table th .desc { 
+  background-image: url(/images/down_arrow.png); 
+}
+
+div#flashnotice {
+  background-color: green;
+  color: white;
+}
+div#flashalert, div#flasherror {
+  background-color: red;
+  color: white;
+}
