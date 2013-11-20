@@ -13,4 +13,9 @@ capybara-*.html
 /spec/tmp/*
 **.orig
 rerun.txt
+<<<<<<< HEAD
 pickle-email-*.html
+=======
+pickle-email-*.html
+config/*.yml
+>>>>>>> 7531bfdcfafccaae4ff9dd391ab3ff9bc721338b
