@@ -1,2 +1,2 @@
-require 'zip/zip'
+require 'zip'
 require 'taglib'
