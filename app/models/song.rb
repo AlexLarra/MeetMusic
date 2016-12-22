@@ -1,8 +1,7 @@
 class Song < ActiveRecord::Base
 
   belongs_to :user
-  attr_accessible :album, :artist, :duration, :name, :reprod, :audio
-  
+
   has_attached_file :audio
   validates_attachment_presence :audio
   validates_attachment_content_type :audio, content_type: ['audio/mp3','audio/mpeg']
@@ -23,9 +22,9 @@ class Song < ActiveRecord::Base
         #tag.track   #=> 7
         #tag.genre   #=> "Indie Rock"
         #tag.comment #=> nil
-    
+
         properties = fileref.audio_properties
-        
+
         segundostotales = properties.length
         minutos = segundostotales / 60
         segundos = segundostotales-(minutos*60)
@@ -34,7 +33,6 @@ class Song < ActiveRecord::Base
         else
           song.duration = minutos.to_s + ":0" + segundos.to_s
         end
-      
       end
     end
   end
