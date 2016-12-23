@@ -8,9 +8,6 @@ MeetMusic::Application.routes.draw do
 
   resources :users
   get "sign_up" => "users#new"
-  get "user" => "users#show"
-  get "cuenta" => "users#cuenta"
-  get "borrar_cuenta" => "users#destroy"
 
   resources :songs do
     member do

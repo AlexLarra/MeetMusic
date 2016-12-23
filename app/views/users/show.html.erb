@@ -1,27 +1,7 @@
 <div class="paneldecontrol">
-	<%= render "users/formulario" %>
+  <%= render "users/formulario" %>
 </div>
+
 <div class="principal">
-	<table class="table">
-		<thead>
-    		<tr>
-      			<th>Nombre</th>
-      			<th>URL</th>
-      			<th>Tiempo</th>
-      			<th>Artista</th>
-      			<th>Álbum</th>
-      			<th>Reproc.</th>
-    		</tr>
-  		</thead>
-  		<tbody>
-    		<tr>
-      			<td>…</td>
-      			<td>…</td>
-      			<td>…</td>
-      			<td>…</td>
-      			<td>…</td>
-      			<td>…</td>
-    		</tr>
-  		</tbody>
-	</table>
+  <%= link_to 'Eliminar tu cuenta', @user, method: :delete, data: { confirm: '¿Estás seguro de querer borrar tu cuenta y todas tus canciones?' } %>
 </div>

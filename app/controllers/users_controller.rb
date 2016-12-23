@@ -12,9 +12,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def cuenta
-  end
-
   def show
   end
 
