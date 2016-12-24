@@ -12,18 +12,7 @@
  *= require_tree .
  */
  body{}
- 
-.logo{
-	float: left;
-  height: auto;
-  width: 350px;
-  padding-top: 20px;
-}
 
-.logo a:hover{
-  background-color: transparent;
-}
-	
 #cuenta{
 	float: right;
 	padding: 30px;
@@ -66,12 +55,12 @@ margin-top: 10px;
   background-repeat: no-repeat;
   background-position: right center;
 }
-.table th .asc { 
-  background-image: url(/images/up_arrow.png); 
+.table th .asc {
+  background-image: url(/images/up_arrow.png);
 }
 
-.table th .desc { 
-  background-image: url(/images/down_arrow.png); 
+.table th .desc {
+  background-image: url(/images/down_arrow.png);
 }
 
 div#flashnotice {
