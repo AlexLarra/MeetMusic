@@ -7,10 +7,6 @@ class SongsController < ApplicationController
     load_prev_current_next(@songs, @songs.first)
   end
 
-  def show
-    @song = current_user.songs.find(params[:id])
-  end
-
   def new
     @song = Song.new
   end
@@ -52,7 +48,7 @@ class SongsController < ApplicationController
     redirect_to songs_url
   end
 
-  def song_download
+  def download
     @song = current_user.songs.find(params[:id])
     file_path = @song.audio_file_name
 

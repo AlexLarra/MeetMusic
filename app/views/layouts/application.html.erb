@@ -19,12 +19,10 @@
               <li><%= link_to "Download all", download_all_songs_path, data: { confirm: 'Are you sure?' } %></li>
               <li><%= link_to 'Upload song', new_song_path, target: '_blank' %></li>
               <li><%= link_to "Account", @current_user, style: (action_name == 'show' ? 'background: #eee;' : '') %></li>
+              <li role="separator" class="divider"></li>
+              <li><%= link_to('Log out', log_out_path) %></li>
             </ul>
           </li>
-        </div>
-
-        <div class="navbar-header navbar-right">
-          <%= link_to(clicable_icon_tag('btn-default', 'glyphicon glyphicon-off'), log_out_path) %>
         </div>
       </div>
     </nav>

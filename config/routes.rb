@@ -9,10 +9,10 @@ MeetMusic::Application.routes.draw do
   resources :users
   get "sign_up" => "users#new"
 
-  resources :songs do
+  resources :songs, except: [:show] do
     member do
-       get "descargar" => "songs#song_download"
-       get "play" => "songs#play"
+       get :download
+       get :play
     end
     collection do
       get :download_all

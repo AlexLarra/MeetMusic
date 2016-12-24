@@ -6,7 +6,6 @@
 				<th><%= sortable "artist", "Artista" %></th>
 				<th>Álbum</th>
 				<th>Duracion</th>
-				<th>Reprod</th>
 				<th></th>
 				<th></th>
 				<th></th>
@@ -20,12 +19,10 @@
 				<td><%= song.artist %></td>
 				<td><%= song.album %></td>
 				<td><%= song.duration %></td>
-				<td><%= song.reprod %></td>
-				<td><%= link_to 'Editar', edit_song_path(song) %></td>
-				<td><%= link_to 'Borrar', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-				<td><%= link_to 'Descargar', descargar_song_path(:id => song.id) %></td>
-				<td class="play"><%= link_to 'Play', play_song_path(song), remote: true %></td>
-
+				<td><%= link_to(clicable_icon_tag('btn-default', 'glyphicon glyphicon-pencil'), edit_song_path(song)) %></td>
+				<td><%= link_to(clicable_icon_tag('btn-default', 'glyphicon glyphicon-remove'), song, method: :delete, data: { confirm: 'Are you sure?' }) %></td>
+				<td><%= link_to(clicable_icon_tag('btn-default', 'glyphicon glyphicon-download'), download_song_path(id: song.id)) %></td>
+				<td class="play"><%= link_to(clicable_icon_tag('btn-default', 'glyphicon glyphicon-play-circle'), play_song_path(song), remote: true) %></td>
 			</tr>
 		<% end %>
 	</table>
