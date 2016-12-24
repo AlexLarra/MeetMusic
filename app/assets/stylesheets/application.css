@@ -11,31 +11,15 @@
  *= require_self
  *= require_tree .
  */
- body{}
+
+.vertical_padding {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
 
 #cuenta{
 	float: right;
 	padding: 30px;
-}
-
-.paneldecontrol{
-	float: left;
-	height: auto;
-	padding-left: 3%;
-	padding-right: 3%;
-	width: 15%;
-}
-
-.principal{
-	width: 77%;
-	float: right;
-	overflow:scroll;
-	overflow:auto;
-	height:430px;
-}
-
-.link_azul{
-	color: #00aba9;
 }
 
 .controlador{

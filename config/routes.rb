@@ -15,8 +15,8 @@ MeetMusic::Application.routes.draw do
        get "play" => "songs#play"
     end
     collection do
-      get "descargar_todas" => "songs#all_songs_download"
-      get "recientes" => "songs#recientes"
+      get :download_all
+      get :latests
     end
   end
 end

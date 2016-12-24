@@ -63,7 +63,7 @@ class SongsController < ApplicationController
     end
   end
 
-  def recientes
+  def latests
     @songs = current_user.songs.reverse
     load_prev_current_next(@songs, @songs.first)
 
@@ -73,7 +73,7 @@ class SongsController < ApplicationController
     end
   end
 
-  def all_songs_download
+  def download_all
     lista_canciones = current_user.songs
     if lista_canciones.present?
       file_name = "canciones.zip"
