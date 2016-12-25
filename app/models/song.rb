@@ -35,4 +35,8 @@ class Song < ActiveRecord::Base
       end
     end
   end
+
+  def title
+    "#{artist} - #{name}"
+  end
 end

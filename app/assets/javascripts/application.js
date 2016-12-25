@@ -1,33 +1,55 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// the compiled file.
-//
-// WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
-// GO AFTER THE REQUIRES BELOW.
-//
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
+
+// js routes wrapper initialization
+var _routes = {};
+
 $(document).ready(function(){
-	
-	$("#listacanciones tr").click(function () {
-		$("#listacanciones tr").css("background-color", "transparent");
-		$(this).css("background-color", "orange");
+
+	$("#song_list tr:not(:first)").dblclick(function () {
+    play($(this));
 	});
 
-	play();
-
+  $(document).on('click', '#next_song', function() {
+    next_row_song = row_next_to(playing_song_row());
+    play(next_row_song);
+  });
 });
 
-function play(){
-	var audio = document.getElementById('audio');
-  audio.addEventListener('ended',function(){
-     $("#siguiente").click();
+function play(song_row) {
+  id = song_row.data('song-id');
+
+  $.get(_routes['playSongsPathJS'], { id: id })
+    .done(function() {
+      $("#song_list tr").css("background-color", "transparent");
+      song_row.css("background-color", "orange");
+
+      playNextAtTheEnd(song_row);
+    });
+}
+
+function playNextAtTheEnd(song_row) {
+  var audio = document.getElementById('audio');
+  audio.addEventListener('ended',function() {
+    next_row_song = row_next_to(song_row);
+    play(next_row_song);
   });
+}
+
+function row_next_to(song_row) {
+  return song_row.next();
+}
+
+function playing_song_id() {
+  return $('#audio').data('song-id');
+}
+
+function playing_song_row() {
+  return $('#song_' + playing_song_id());
+}
+
+function first_song_row() {
+  return $("#song_list tr:not(:first):first");
 }

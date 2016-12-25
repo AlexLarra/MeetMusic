@@ -15,7 +15,6 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= clicable_icon_tag('btn-default', 'glyphicon glyphicon-th-large') %></a>
             <ul class="dropdown-menu">
               <li><%= link_to "Songs", songs_url, style: (action_name == 'index' ? 'background: #eee;' : '') %></li>
-              <li><%= link_to "Added recently", latests_songs_path, style: (action_name == 'latests' ? 'background: #eee;' : '') %></li>
               <li><%= link_to "Download all", download_all_songs_path, data: { confirm: 'Are you sure?' } %></li>
               <li><%= link_to 'Upload song', new_song_path, target: '_blank' %></li>
               <li><%= link_to "Account", @current_user, style: (action_name == 'show' ? 'background: #eee;' : '') %></li>
@@ -38,5 +37,9 @@
 
   <%= yield %>
 
+  <!-- Extra javascripts -->
+  <%= javascript_tag do %>
+    <%= yield(:javascript) %>
+  <% end %>
 </body>
 </html>

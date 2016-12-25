@@ -12,11 +12,10 @@ MeetMusic::Application.routes.draw do
   resources :songs, except: [:show] do
     member do
        get :download
-       get :play
     end
     collection do
+      get :play
       get :download_all
-      get :latests
     end
   end
 end
