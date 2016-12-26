@@ -53,3 +53,7 @@ function playing_song_row() {
 function first_song_row() {
   return $("#song_list tr:not(:first):first");
 }
+
+function find_song_row_by_id(id){
+  return $('#song_' + id);
+}

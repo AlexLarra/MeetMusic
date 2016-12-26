@@ -32,12 +32,7 @@ class SongsController < ApplicationController
 
   def update
     @song = current_user.songs.find(params[:id])
-
-    if @song.update(song_params)
-      redirect_to songs_path, notice: 'Song was successfully updated.'
-    else
-      render :edit
-    end
+    @song.update(song_params)
   end
 
   def destroy

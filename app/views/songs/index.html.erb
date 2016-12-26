@@ -10,16 +10,16 @@
 			</tr>
 		</thead>
 
-		<% @songs.each_with_index do |song, i| %>
+		<% @songs.each do |song| %>
 			<tr id="<%= "song_#{song.id}" %>" data-song-id="<%= song.id %>">
-				<td><%= song.name %></td>
-				<td><%= song.artist %></td>
-				<td><%= song.album %></td>
+				<td class="name"><%= song.name %></td>
+				<td class="artist"><%= song.artist %></td>
+				<td class="album"><%= song.album %></td>
 				<td><%= song.duration %></td>
 				<td class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= clicable_icon_tag('btn-default', 'glyphicon glyphicon-th-large') %></a>
           <ul class="dropdown-menu">
-            <li><%= link_to('Edit', edit_song_path(song)) %></li>
+            <li><%= link_to('Edit', edit_song_path(song), { remote: true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}) %></li>
             <li><%= link_to('Remove', song, method: :delete, data: { confirm: 'Are you sure?' }) %></li>
             <li><%= link_to('Download', download_song_path(id: song.id)) %></li>
           </ul>
