@@ -23,8 +23,8 @@ function play(song_row) {
 
   $.get(_routes['playSongsPathJS'], { id: id })
     .done(function() {
-      $("#song_list tr").css("background-color", "transparent");
-      song_row.css("background-color", "orange");
+      $(".info").removeClass("info")
+      song_row.addClass("info");
 
       playNextAtTheEnd(song_row);
     });

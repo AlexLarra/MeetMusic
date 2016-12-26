@@ -7,8 +7,6 @@
 				<th>Album</th>
 				<th>Duration</th>
 				<th></th>
-				<th></th>
-				<th></th>
 			</tr>
 		</thead>
 
@@ -18,9 +16,14 @@
 				<td><%= song.artist %></td>
 				<td><%= song.album %></td>
 				<td><%= song.duration %></td>
-				<td><%= link_to(clicable_icon_tag('btn-default', 'glyphicon glyphicon-pencil'), edit_song_path(song)) %></td>
-				<td><%= link_to(clicable_icon_tag('btn-default', 'glyphicon glyphicon-remove'), song, method: :delete, data: { confirm: 'Are you sure?' }) %></td>
-				<td><%= link_to(clicable_icon_tag('btn-default', 'glyphicon glyphicon-download'), download_song_path(id: song.id)) %></td>
+				<td class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= clicable_icon_tag('btn-default', 'glyphicon glyphicon-th-large') %></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to('Edit', edit_song_path(song)) %></li>
+            <li><%= link_to('Remove', song, method: :delete, data: { confirm: 'Are you sure?' }) %></li>
+            <li><%= link_to('Download', download_song_path(id: song.id)) %></li>
+          </ul>
+				</td>
 			</tr>
 		<% end %>
 	</table>
