@@ -1,39 +1,49 @@
 <div class="container">
-	<table id="song_list" class="table">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Artist</th>
-				<th>Album</th>
-				<th>Duration</th>
-				<th></th>
-			</tr>
-		</thead>
+  <table id="song_list" class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Artist</th>
+        <th>Album</th>
+        <th>Duration</th>
+        <th></th>
+      </tr>
+    </thead>
 
-		<% @songs.each do |song| %>
-			<tr id="<%= "song_#{song.id}" %>" data-song-id="<%= song.id %>">
-				<td class="name"><%= song.name %></td>
-				<td class="artist"><%= song.artist %></td>
-				<td class="album"><%= song.album %></td>
-				<td><%= song.duration %></td>
-				<td class="dropdown">
+    <% @songs.each do |song| %>
+      <tr id="<%= "song_#{song.id}" %>" data-song-id="<%= song.id %>">
+        <td class="name"><%= song.name %></td>
+        <td class="artist"><%= song.artist %></td>
+        <td class="album"><%= song.album %></td>
+        <td><%= song.duration %></td>
+        <td class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= clicable_icon_tag('btn-default', 'glyphicon glyphicon-th-large') %></a>
           <ul class="dropdown-menu">
             <li><%= link_to('Edit', edit_song_path(song), { remote: true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}) %></li>
             <li><%= link_to('Remove', song, method: :delete, data: { confirm: 'Are you sure?' }) %></li>
             <li><%= link_to('Download', download_song_path(id: song.id)) %></li>
           </ul>
-				</td>
-			</tr>
-		<% end %>
-	</table>
+        </td>
+      </tr>
+    <% end %>
+  </table>
 </div>
 
 <% if @songs.present? %>
-	<div id="player">
-		<% content_for(:javascript) do %>
-			_routes['playSongsPathJS'] = '<%= play_songs_path(format: :js) %>';
-		  play(first_song_row());
-		<% end %>
-	</div>
+  <nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container vertical_padding">
+      <div class="container" id="player"></div>
+
+      <div class="container">
+        <%= clicable_icon_tag('btn-default', 'glyphicon glyphicon-step-backward', 'previous_song-js') %>
+        <%= clicable_icon_tag('btn-default', 'glyphicon glyphicon-step-forward', 'next_song-js') %>
+        <%= clicable_icon_tag('btn-default', 'glyphicon glyphicon-random', 'random-js') %>
+      </div>
+    </div>
+  </nav>
+
+  <% content_for(:javascript) do %>
+    _routes['playSongsPathJS'] = '<%= play_songs_path(format: :js) %>';
+    play(first_song_row());
+  <% end %>
 <% end %>

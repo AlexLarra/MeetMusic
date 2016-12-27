@@ -1,12 +1,5 @@
-<nav class="navbar navbar-default navbar-fixed-bottom">
-  <div class="container vertical_padding">
-    <%= audio_tag("#{song.audio.url}", controls: true, id: "audio", autoplay: true, 'data-song-id': song.id) %>
+<%= audio_tag(song.audio.url, controls: true, id: "audio", autoplay: true, 'data-song-id': song.id) %>
 
-    <div class="container">
-      <h5 class="navbar-text text-center"><%= song.title %></h5>
-      <%= clicable_icon_tag('btn-default', 'glyphicon glyphicon-step-backward', 'previous_song') %>
-      <%= clicable_icon_tag('btn-default', 'glyphicon glyphicon-step-forward', 'next_song') %>
-      <%= clicable_icon_tag('btn-default', 'glyphicon glyphicon-random', 'random') %>
-    </div>
-  </div>
-</nav>
+<div class="container">
+  <h5 class="navbar-text text-center"><%= song.title %></h5>
+</div>
