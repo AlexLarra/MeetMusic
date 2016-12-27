@@ -42,3 +42,7 @@ div#flashalert, div#flasherror {
   background-color: red;
   color: white;
 }
+
+tr:not(#thead):hover {
+  background-color: #F8F8F8;
+}

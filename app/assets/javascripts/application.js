@@ -8,7 +8,10 @@ var _routes = {};
 
 $(document).ready(function(){
 
-	$("#song_list tr:not(:first)").dblclick(function () {
+  // prevent select text in song list rows (it was happening double clicking)
+  jQuery("#song_list tr").mousedown(function(e){ e.preventDefault(); });
+
+	$("#song_list tr:not(#thead)").dblclick(function () {
     play($(this));
 	});
 
@@ -65,7 +68,7 @@ function playing_song_row() {
 }
 
 function first_song_row() {
-  return $("#song_list tr:not(:first):first");
+  return $("#song_list tr:not(#thead):first");
 }
 
 function find_song_row_by_id(id) {
@@ -83,7 +86,7 @@ function randomRow() {
 }
 
 function notPlayingRows() {
-  return $("#song_list tr:not(:first):not(.info)");
+  return $("#song_list tr:not(#thead):not(.info)");
 }
 
 function getRandomInt(min, max) {
