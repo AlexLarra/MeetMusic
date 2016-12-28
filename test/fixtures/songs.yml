@@ -5,13 +5,11 @@ one:
   album: MyString
   artist: MyString
   duration: 2013-04-17 22:42:03
-  reprod: 1
-  user: 
+  user:
 
 two:
   name: MyString
   album: MyString
   artist: MyString
   duration: 2013-04-17 22:42:03
-  reprod: 1
-  user: 
+  user:

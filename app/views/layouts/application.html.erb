@@ -7,31 +7,29 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<center>
-		<div class="navbar">
-     <div class="navbar-inner">
+  <% if current_user %>
+    <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="Modal" aria-hidden="true"></div>
 
-      <% if current_user %>
-      <div class="logo"><%=link_to(image_tag("M_Music.png", alt: "Imagen M_Music"),songs_path)%></div>
-      <% else %>
-      <div class="logo"><%=link_to(image_tag("M_Music.png", alt: "Imagen M_Music"))%></div>
-      <% end %>
-
-
-      <div id="cuenta">
-        <div id="user_nav">
-          <% if current_user %>
-          Te has logueado como <%= current_user.email %>
-          <%= link_to "Desconectar", log_out_path, :class => "link_azul" %>
-          <% else %>
-          <%= link_to "Registrarse", sign_up_path %> o
-          <%= link_to "Identificarse", log_in_path %>
-          <% end %>
+		<nav class="navbar navbar-default">
+      <div class="container-fluid vertical_padding">
+        <div class="navbar-header navbar-left dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= clicable_icon_tag('btn-default', 'glyphicon glyphicon-cog') %></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "Songs", songs_url, style: (action_name == 'index' ? 'background: #eee;' : '') %></li>
+            <li><%= link_to "Download all", download_all_songs_path, data: { confirm: 'Are you sure?' } %></li>
+            <li><%= link_to 'Upload song', new_song_path, target: '_blank' %></li>
+            <li><%= link_to "Account", @current_user, style: (action_name == 'show' ? 'background: #eee;' : '') %></li>
+            <li role="separator" class="divider"></li>
+            <li><%= link_to('Log out', log_out_path) %></li>
+          </ul>
         </div>
       </div>
-
+    </nav>
+  <% else %>
+    <div class='thumbnail'>
+      <%= image_tag("M_Music.png") %>
     </div>
-  </div>
+  <% end %>
 
   <% flash.each do |name, msg| %>
     <%= content_tag :div, msg, :id => "flash#{name}" %>
@@ -39,6 +37,9 @@
 
   <%= yield %>
 
-  </center>
+  <!-- Extra javascripts -->
+  <%= javascript_tag do %>
+    <%= yield(:javascript) %>
+  <% end %>
 </body>
 </html>

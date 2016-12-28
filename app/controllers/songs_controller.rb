@@ -3,12 +3,7 @@ class SongsController < ApplicationController
   before_filter :signed_in?
 
   def index
-    @songs = current_user.songs.order(sort_column + ' ' + sort_direction)
-    load_prev_current_next(@songs, @songs.first)
-  end
-
-  def show
-    @song = current_user.songs.find(params[:id])
+    @songs = current_user.songs.order(created_at: :desc)
   end
 
   def new
@@ -37,12 +32,7 @@ class SongsController < ApplicationController
 
   def update
     @song = current_user.songs.find(params[:id])
-
-    if @song.update(song_params)
-      redirect_to @song, notice: 'Song was successfully updated.'
-    else
-      render :edit
-    end
+    @song.update(song_params)
   end
 
   def destroy
@@ -52,7 +42,7 @@ class SongsController < ApplicationController
     redirect_to songs_url
   end
 
-  def song_download
+  def download
     @song = current_user.songs.find(params[:id])
     file_path = @song.audio_file_name
 
@@ -63,17 +53,7 @@ class SongsController < ApplicationController
     end
   end
 
-  def recientes
-    @songs = current_user.songs.reverse
-    load_prev_current_next(@songs, @songs.first)
-
-    respond_to do |format|
-      format.html { render 'index' }
-      format.json { render json: @songs }
-    end
-  end
-
-  def all_songs_download
+  def download_all
     lista_canciones = current_user.songs
     if lista_canciones.present?
       file_name = "canciones.zip"
@@ -91,9 +71,7 @@ class SongsController < ApplicationController
   end
 
   def play
-    @songs = current_user.songs.order(sort_column + ' ' + sort_direction)
     @song = current_user.songs.find(params[:id])
-    load_prev_current_next(@songs, @song)
   end
 
   private
@@ -102,32 +80,7 @@ class SongsController < ApplicationController
     params.require(:song).permit(:name, :artist, :album, :audio)
   end
 
-  def load_prev_current_next(songs, current)
-    return nil if songs.empty?
-    current_index = songs.rindex(current)
-    @p_song = songs.at(current_index - 1)
-    @c_song = current
-    @n_song = songs.at(current_index + 1)
-    @r_song = Song.random
-  end
-
   def signed_in?
     raise 'Unauthorized!!!!' unless current_user
-  end
-
-  def sort_column
-    params[:sort] || "name"
-  end
-
-  def sort_direction
-    params[:direction] || "asc"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
-  end
-
-  def sort_column
-    Song.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
 end

@@ -1,5 +1,4 @@
 class Song < ActiveRecord::Base
-
   belongs_to :user
 
   has_attached_file :audio
@@ -35,5 +34,9 @@ class Song < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def title
+    "#{artist} - #{name}"
   end
 end

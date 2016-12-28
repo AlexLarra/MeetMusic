@@ -8,18 +8,14 @@ MeetMusic::Application.routes.draw do
 
   resources :users
   get "sign_up" => "users#new"
-  get "user" => "users#show"
-  get "cuenta" => "users#cuenta"
-  get "borrar_cuenta" => "users#destroy"
 
-  resources :songs do
+  resources :songs, except: [:show] do
     member do
-       get "descargar" => "songs#song_download"
-       get "play" => "songs#play"
+       get :download
     end
     collection do
-      get "descargar_todas" => "songs#all_songs_download"
-      get "recientes" => "songs#recientes"
+      get :play
+      get :download_all
     end
   end
 end

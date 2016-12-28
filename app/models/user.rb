@@ -2,10 +2,11 @@ class User < ActiveRecord::Base
   attr_accessor :password
   before_save :encrypt_password
 
-  validates_confirmation_of :password
-  validates_presence_of :password, :on => :create
-  validates_presence_of :email
-  validates_uniqueness_of :email
+  validates :password, confirmation: true
+  validates :password, presence: true, on: :create
+  validates :email, presence: true
+  validates :email, uniqueness: true
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
   has_many :songs, dependent: :destroy
 

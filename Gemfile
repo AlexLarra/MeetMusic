@@ -7,12 +7,13 @@ gem 'paperclip'
 gem 'taglib-ruby'
 gem 'rubyzip'
 gem 'thin'
-gem 'jquery-rails'
 
 group :assets do
   gem 'sass-rails', '~> 4.0.3'
   gem 'coffee-rails', '~> 4.0.0'
   gem 'uglifier', '>= 1.0.3'
+  gem 'twitter-bootstrap-rails'
+  gem 'jquery-rails'
 end
 
 group :development do

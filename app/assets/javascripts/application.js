@@ -1,32 +1,96 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// the compiled file.
-//
-// WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
-// GO AFTER THE REQUIRES BELOW.
-//
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require_tree .
+
+// js routes wrapper initialization
+var _routes = {};
+
 $(document).ready(function(){
-	
-	$("#listacanciones tr").click(function () {
-		$("#listacanciones tr").css("background-color", "transparent");
-		$(this).css("background-color", "orange");
+
+  // prevent select text in song list rows (it was happening double clicking)
+  jQuery("#song_list tr").mousedown(function(e){ e.preventDefault(); });
+
+	$("#song_list tr:not(#thead)").dblclick(function () {
+    play($(this));
 	});
 
-	play();
+  $('#next_song-js').click(function() {
+    next_row_song = nextSongRow(playing_song_row());
+    play(next_row_song);
+  });
 
+  $('#random-js').click(function() {
+    if (isRandomSelected()) {
+      $(this).removeClass("btn-info");
+      $(this).addClass("btn-default");
+    } else {
+      $(this).removeClass("btn-default");
+      $(this).addClass("btn-info");
+    }
+  });
 });
 
-function play(){
-	var audio = document.getElementById('audio');
-  audio.addEventListener('ended',function(){
-     $("#siguiente").click();
+function play(song_row) {
+  id = song_row.data('song-id');
+
+  $.get(_routes['playSongsPathJS'], { id: id })
+    .done(function() {
+      $(".info").removeClass("info")
+      song_row.addClass("info");
+
+      playNextAtTheEnd(song_row);
+    });
+}
+
+function playNextAtTheEnd(song_row) {
+  var audio = document.getElementById('audio');
+  audio.addEventListener('ended',function() {
+    next_row_song = nextSongRow(song_row);
+    play(next_row_song);
   });
+}
+
+function nextSongRow(song_row) {
+  if (isRandomSelected()) {
+    return randomRow();
+  } else {
+    return song_row.next();
+  }
+}
+
+function playing_song_id() {
+  return $('#audio').data('song-id');
+}
+
+function playing_song_row() {
+  return $('#song_' + playing_song_id());
+}
+
+function first_song_row() {
+  return $("#song_list tr:not(#thead):first");
+}
+
+function find_song_row_by_id(id) {
+  return $('#song_' + id);
+}
+
+function isRandomSelected() {
+  return $('#random-js').hasClass("btn-info");
+}
+
+function randomRow() {
+  rows = notPlayingRows();
+  random = getRandomInt(0, rows.size() - 1);
+  return $(rows[random]);
+}
+
+function notPlayingRows() {
+  return $("#song_list tr:not(#thead):not(.info)");
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
