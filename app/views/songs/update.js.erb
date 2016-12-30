@@ -1,5 +1,5 @@
 $('.modal').modal('hide');
-song_row = find_song_row_by_id('<%= @song.id %>');
+song_row = findSongRowById('<%= @song.id %>');
 song_row.find(".name").text('<%= @song.name %>');
 song_row.find(".artist").text('<%= @song.artist %>');
 song_row.find(".album").text('<%= @song.album %>');
