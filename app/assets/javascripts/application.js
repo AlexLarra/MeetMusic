@@ -8,6 +8,7 @@ var _routes = {};
 
 var listenedSongsIds = [];
 var listenedSongsIndex = 0;
+var reset = false;
 
 $(document).ready(function(){
 
@@ -19,7 +20,7 @@ $(document).ready(function(){
 	});
 
   $('#next_song-js').click(function() {
-    next_row_song = nextSongRow(playing_song_row());
+    next_row_song = nextSongRow(playingSongRow());
     play(next_row_song);
   });
 
@@ -35,6 +36,8 @@ $(document).ready(function(){
       $(this).removeClass("btn-default");
       $(this).addClass("btn-info");
     }
+
+    toggleReset();
   });
 });
 
@@ -46,8 +49,8 @@ function play(song_row, previous = false) {
       $(".info").removeClass("info")
       song_row.addClass("info");
 
-      if (!previous) { addToListenedSongs(id) }
-      playNextAtTheEnd(song_row);
+      if (!previous) addToListenedSongs(id)
+      playNextAtTheEnd();
     });
 }
 
@@ -62,28 +65,29 @@ function playPrevious() {
   }
 }
 
-function playNextAtTheEnd(song_row) {
+function playNextAtTheEnd() {
   var audio = document.getElementById('audio');
   audio.addEventListener('ended',function() {
-    next_row_song = nextSongRow(song_row);
+    next_row_song = nextSongRow(playingSongRow());
     play(next_row_song);
   });
 }
 
 function nextSongRow(song_row) {
-  if (isLastListenedSong()) {
+  if (reset || isLastListenedSong()) {
+    if (reset) resetListenedSongs();
     return isRandomSelected() ? randomRow() : song_row.next()
   } else {
     return nextListenedSongRow()
   }
 }
 
-function playing_song_id() {
+function playingSongId() {
   return $('#audio').data('song-id');
 }
 
-function playing_song_row() {
-  return $('#song_' + playing_song_id());
+function playingSongRow() {
+  return $('#song_' + playingSongId());
 }
 
 function firstSongRow() {
@@ -133,4 +137,18 @@ function isLastListenedSong() {
 function nextListenedSongRow() {
   nextId = listenedSongsIds[listenedSongsIndex];
   return findSongRowById(nextId);
+}
+
+function resetListenedSongs() {
+  listenedSongsIds = [];
+  listenedSongsIndex = 0;
+  reset = false;
+}
+
+function toggleReset() {
+  if (reset) {
+    reset = false;
+  } else {
+    reset = true;
+  }
 }
