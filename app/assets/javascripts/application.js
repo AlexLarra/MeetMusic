@@ -6,6 +6,9 @@
 // js routes wrapper initialization
 var _routes = {};
 
+var listenedSongsIds = [];
+var listenedSongsIndex = 0;
+
 $(document).ready(function(){
 
   // prevent select text in song list rows (it was happening double clicking)
@@ -20,6 +23,10 @@ $(document).ready(function(){
     play(next_row_song);
   });
 
+  $('#previous_song-js').click(function() {
+    playPrevious();
+  });
+
   $('#random-js').click(function() {
     if (isRandomSelected()) {
       $(this).removeClass("btn-info");
@@ -31,7 +38,7 @@ $(document).ready(function(){
   });
 });
 
-function play(song_row) {
+function play(song_row, previous = false) {
   id = song_row.data('song-id');
 
   $.get(_routes['playSongsPathJS'], { id: id })
@@ -39,8 +46,20 @@ function play(song_row) {
       $(".info").removeClass("info")
       song_row.addClass("info");
 
+      if (!previous) { addToListenedSongs(id) }
       playNextAtTheEnd(song_row);
     });
+}
+
+function playPrevious() {
+  if (isFirstListenedSong()) {
+    play(firstSongRow);
+  } else {
+    listenedSongsIndex -= 1;
+    previousId = listenedSongsIds[listenedSongsIndex - 1];
+    previousSongRow = findSongRowById(previousId);
+    play(previousSongRow, true);
+  }
 }
 
 function playNextAtTheEnd(song_row) {
@@ -52,10 +71,10 @@ function playNextAtTheEnd(song_row) {
 }
 
 function nextSongRow(song_row) {
-  if (isRandomSelected()) {
-    return randomRow();
+  if (isLastListenedSong()) {
+    return isRandomSelected() ? randomRow() : song_row.next()
   } else {
-    return song_row.next();
+    return nextListenedSongRow()
   }
 }
 
@@ -67,11 +86,11 @@ function playing_song_row() {
   return $('#song_' + playing_song_id());
 }
 
-function first_song_row() {
+function firstSongRow() {
   return $("#song_list tr:not(#thead):first");
 }
 
-function find_song_row_by_id(id) {
+function findSongRowById(id) {
   return $('#song_' + id);
 }
 
@@ -93,4 +112,25 @@ function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function addToListenedSongs(song_id) {
+  if (isLastListenedSong()) {
+    listenedSongsIds.push(song_id);
+  }
+
+  listenedSongsIndex += 1;
+}
+
+function isFirstListenedSong() {
+  return listenedSongsIndex == 1;
+}
+
+function isLastListenedSong() {
+  return listenedSongsIds.length == listenedSongsIndex;
+}
+
+function nextListenedSongRow() {
+  nextId = listenedSongsIds[listenedSongsIndex];
+  return findSongRowById(nextId);
 }
